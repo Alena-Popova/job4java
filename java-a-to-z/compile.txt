@@ -1,0 +1,13 @@
+javac -d out src\main\java\ru\job4j\calculator\DummyBotTest.java
+javac -d out src\main\java\ru\job4j\calculator\Max.java
+java -cp out popova.max.ShowConditions
+type NUL > .java
+type NUL > Triangle.java
+
+javac -d out src\main\java\ru\job4j\condition\Point.java
+javac -d out src\main\java\ru\job4j\condition\Triangle.java
+javac -d out src\main\java\ru\job4j\condition\package-info.java
+
+javac -d out src\main\java\ru\job4j\Calculate.java
+javac -d out src\test\java\ru\job4j\CalculateTest.java
+javac -d out src\main\java\ru\job4j\tracker\Tracker.java

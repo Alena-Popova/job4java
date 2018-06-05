@@ -1,0 +1,26 @@
+C\Program Files\MySQL\MySQL Server 5.7\bin\mysql.exe
+
+mysql.exe –u root –p
+show databases;
+create database gregs_list;
+use gregs_list;
+create table doughnut_list
+(
+doughnut_name VARCHAR(10),
+doughnut_type VARCHAR(6));
+
+CREATE TABLE my_contacts( last_name VARCHAR(30),first_name VARCHAR(20),email VARCHAR(50),gender CHAR(1),birthday DATE,profession VARCHAR(50),location VARCHAR(50),status VARCHAR(20),interests VARCHAR(100),seeking VARCHAR(100));
+DESC my_contacts;
+DROP TABLE my_contacts;
+
+
+INSERT INTO my_contacts (last_name, first_name, email, gender, birthday, profession, location, status,interests, seeking) VALUES ('Андерсон', 'Джиллиан', 'jill_anderson@breakneckpizza.com','Ж', '1980-05-09', 'Писатель','Пало-Альто, СА', 'Не замужем', 'Каяк, террариум', 'Друзья');
+
+
+INSERT INTO my_contacts
+(last_name, first_name, email, gender, birthday, profession, location, status.
+Interests, seeking) VALUES ('Андерсон', 'Джиллиан', 'jill_anderson@breakneckpizza.
+com', 'Ж', '1980-05-09', 'Писатель' 'Пало-Альто, СА', 'He замужем', 'Каяк, рептилии',
+'Друзья');
+INSERT INTO my_contacts ( first_name, email,profession, location) VALUES ('Пэт ','patpost0breakneckpizza.com ','Почтальон','Принстон, NJ');
+SELECT * FROM my_contacts;
