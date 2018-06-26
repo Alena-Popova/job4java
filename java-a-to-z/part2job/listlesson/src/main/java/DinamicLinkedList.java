@@ -6,10 +6,10 @@ import java.util.NoSuchElementException;
 public class DinamicLinkedList<E> implements Iterable<E> {
 
     private Node<E> first;
-    int modCount = 0;
-    int size = 0;
+    private int modCount = 0;
+    private int size = 0;
 
-    private static class Node<E> {
+    public static class Node<E> {
         E date = null;
         Node<E> next = null;
         Node<E> previous = null;
@@ -20,9 +20,9 @@ public class DinamicLinkedList<E> implements Iterable<E> {
 
         @Override
         public String toString() {
-            return "Node{" +
-                    "date=" + date.toString() +
-                    '}';
+            return "Node{"
+                    + "date=" + date.toString()
+                    + '}';
         }
     }
 
@@ -32,7 +32,7 @@ public class DinamicLinkedList<E> implements Iterable<E> {
             this.first = newLink;
             this.first.next = null;
         } else {
-            this.first.previous = newLink ;
+            this.first.previous = newLink;
             newLink.next = first;
             this.first = newLink;
         }
@@ -44,12 +44,42 @@ public class DinamicLinkedList<E> implements Iterable<E> {
             throw new IndexOutOfBoundsException();
         }
         Node<E> result = this.first;
-        int i = 0;
-        while (i < index) {
+        int i = size - 1;
+        while (i != index) {
             result = result.next;
-            i++;
+            i--;
         }
         return result.date;
+    }
+
+    public E remove(int index) {
+        if (index >= size) {
+            throw new IndexOutOfBoundsException();
+        }
+        int step = size - 1;
+        Node<E> result = this.first;
+        while (step != index) {
+            result = result.next;
+            step--;
+        }
+        replaseReference(result);
+        size--;
+        return result.date;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    private void replaseReference(Node<E> ref) {
+        if (ref.next != null) {
+            ref.next.previous = ref.previous;
+        }
+        if (ref.previous != null) {
+            ref.previous.next = ref.next;
+        } else {
+            first = ref.next;
+        }
     }
 
     public Iterator<E> iterator() {
@@ -77,17 +107,7 @@ public class DinamicLinkedList<E> implements Iterable<E> {
             }
 
             public void remove() {
-                if (previousStep.previous != null) {
-                    previousStep.previous.next = previousStep.next;
-                } else {
-                    previousStep.next.previous = null;
-                    first = previousStep.next;
-                }
-                if (previousStep.next != null) {
-                    previousStep.next.previous = previousStep.previous;
-                } else {
-                    previousStep.previous.next = null;
-                }
+                replaseReference(previousStep);
                 modCount++;
                 expectedModCount++;
                 size--;
@@ -98,19 +118,4 @@ public class DinamicLinkedList<E> implements Iterable<E> {
     }
 
 
-    public boolean hasCycle() {
-        boolean result = false;
-        Iterator<E> iterator = iterator();
-        Iterator<E> iterator1 = iterator();
-        while (iterator.hasNext()) {
-            E step = iterator.next();
-            while (iterator1.hasNext()) {
-                if (iterator.next() == iterator1.next()) {
-                    System.out.println("log");
-                    result = true;
-                }
-            }
-        }
-        return result;
-    }
 }
