@@ -5,8 +5,6 @@ public class CircleList<E> {
     public static class Node<E> {
         E date = null;
         Node<E> next = null;
-        Node<E> previous = null;
-
         Node(E date) {
             this.date = date;
         }
@@ -21,22 +19,18 @@ public class CircleList<E> {
 
     boolean hasCycle(Node first) {
         boolean result = false;
-
-        Node step = first;
-        Node stepNext = first.next;
-        LabelOne: while (stepNext != null) {
-            Node circle = first;
-            while (circle != step) {
-                System.out.println(circle + "-no-" + stepNext);
-                if (circle == stepNext) {
-                    System.out.println(circle + "--" + stepNext);
-                    result = true;
-                    break LabelOne;
-                }
-                circle = circle.next;
+        if (first != null) {
+            Node step = first;
+            Node stepNext = first;
+            while (step != null && stepNext != null && stepNext.next != null) {
+                step = step.next;
+                System.out.println(step.date);
+                stepNext = stepNext.next.next;
+                System.out.println(stepNext.date);
+                if (step == stepNext)
+                    return true;
             }
-            step = stepNext;
-            stepNext = stepNext.next;
+            return false;
         }
         return result;
     }
