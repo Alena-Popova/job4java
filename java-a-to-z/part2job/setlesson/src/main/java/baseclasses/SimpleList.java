@@ -6,33 +6,32 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 public class SimpleList<E> implements Iterable<E> {
-    private Object[] container = new Object[10];
-    private int index = 0;
-    private int modCount = 0;
+    private int capacity = 10;
+    private Object[] container = new Object[capacity];
+    int index  = 0;
+    int modCount = 0;
 
     public boolean add(E value) {
-        if (container.length != 0 && container.length % 10 == 0) {
-            container = Arrays.copyOf(container, container.length + 10);
+        if (index >= capacity) {
+            capacity = (capacity * 3) / 2 + 1;
+            container = Arrays.copyOf(container, capacity);
         }
         container[index++] = value;
         modCount++;
         return true;
     }
 
-    public E get(int index) {
-        return (E) container[index];
-    }
 
-    public Object[] getContainer() {
-        return container;
+    public E get(int sIndex) {
+        return (E) container[sIndex];
     }
 
     public int getIndex() {
         return index;
     }
 
-    public int getModCount() {
-        return modCount;
+    public void setIndex(int index) {
+        this.index = index;
     }
 
     public Iterator<E> iterator() {
@@ -43,25 +42,16 @@ public class SimpleList<E> implements Iterable<E> {
 
 
             public boolean hasNext() {
-                if (expectedModCount != modCount)
+                if (expectedModCount != modCount) {
                     throw new ConcurrentModificationException();
-                boolean result = false;
-                int i = count;
-                if (count < container.length) {
-                    while (i < container.length) {
-                        if (container[count] != null) {
-                            result = true;
-                            break;
-                        }
-                        i++;
-                    }
                 }
-                return result;
+                return count < capacity;
             }
 
             public E next() {
-                if (expectedModCount != modCount)
+                if (expectedModCount != modCount) {
                     throw new ConcurrentModificationException();
+                }
                 if (count >= container.length) {
                     throw new NoSuchElementException();
                 }
@@ -71,6 +61,9 @@ public class SimpleList<E> implements Iterable<E> {
             public void remove() {
                 if (count > container.length || count < 0) {
                     throw new IndexOutOfBoundsException();
+                }
+                if (expectedModCount != modCount) {
+                    throw new ConcurrentModificationException();
                 }
                 container[count] = null;
                 count--;

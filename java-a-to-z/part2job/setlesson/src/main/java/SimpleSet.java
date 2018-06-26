@@ -1,10 +1,13 @@
 import baseclasses.SimpleList;
 
-public class SimpleSet<E> extends SimpleList<E> {
+import java.util.Iterator;
+import java.util.Set;
+import java.util.TreeSet;
+
+public class SimpleSet<E> extends SimpleList<E>{
 
     private Object[] container = new Object[10];
-    int index = 0;
-    int modCount = 0;
+
 
     private boolean isRepeatInMySet(E value) {
         boolean result = false;
@@ -22,11 +25,7 @@ public class SimpleSet<E> extends SimpleList<E> {
         boolean result = false;
         if (!isRepeatInMySet(value))
             result = super.add(value);
-
-        container = super.getContainer();
-        index = super.getIndex();
-        modCount = super.getModCount();
-
         return result;
     }
+
 }

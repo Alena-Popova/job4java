@@ -12,6 +12,7 @@
         <module>listlesson</module>
         <module>setlesson</module>
         <module>mapslesson</module>
+        <module>streamApi</module>
     </modules>
 
     <dependencies>

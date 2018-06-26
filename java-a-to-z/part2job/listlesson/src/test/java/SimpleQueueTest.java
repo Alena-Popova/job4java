@@ -24,9 +24,4 @@ public class SimpleQueueTest {
         assertThat(2, is(queue.poll()));
         assertThat(3, is(queue.poll()));
     }
-
-    @Test
-    public void push() {
-        assertFalse(queue.isCircle());
-    }
 }

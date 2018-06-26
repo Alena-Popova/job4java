@@ -20,6 +20,7 @@ public class CircleListTest {
         two.next = third;
         third.next = four;
         four.next = end;
+        end.next = first;
     }
 
     @Test
