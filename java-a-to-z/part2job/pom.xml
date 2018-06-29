@@ -13,6 +13,7 @@
         <module>setlesson</module>
         <module>mapslesson</module>
         <module>streamApi</module>
+        <module>trees</module>
     </modules>
 
     <dependencies>
