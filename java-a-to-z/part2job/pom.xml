@@ -14,6 +14,7 @@
         <module>mapslesson</module>
         <module>streamApi</module>
         <module>trees</module>
+        <module>controltask</module>
     </modules>
 
     <dependencies>
